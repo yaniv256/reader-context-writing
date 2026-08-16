@@ -1,30 +1,38 @@
 ---
 name: reader-context-writing
-description: Draft and revise substantial reader-facing prose by explicitly separating the current user-session context from the reader's evolving knowledge, questions, objections, and expectations, tracked in inline comments or synchronized sidecars. Use for articles, essays, tutorials, reports, white papers, opinion pieces, operational source artifacts, and major rewrites where conversation context, user feedback, jargon, patchwork editing, or unexplained assumptions could leak into the document.
+description: Draft and revise substantial reader-facing prose by explicitly separating the current user-session context from the reader's evolving knowledge, interests, questions, objections, and expectations. Always edit a reader-context-annotated source and mechanically generate its clean reader-facing counterpart. Use for articles, essays, tutorials, reports, white papers, opinion pieces, operational source artifacts, and major rewrites where conversation context, user feedback, jargon, patchwork editing, irrelevant rationale, or unexplained assumptions could leak into the document.
 ---
 
 # Reader Context Writing
 
 Write the document as a conversation with its eventual reader—not as a continuation of the current user session or a transcript of the drafting process.
 
-Treat reader-context comments as working memory. Keep them in editable source formats that support non-rendered comments, such as Markdown or HTML. Do not render them in the published document.
+Treat reader-context comments as working memory. Keep them in the annotated source and generate a clean operational file that omits them. Always maintain both files.
 
-## Choose inline comments or a sidecar
+## Always edit the annotated source
 
-Use inline reader-context blocks only when the document's rendered form is the artifact its reader consumes. A comment hidden by the renderer is not hidden from a reader who consumes the raw source.
+For every document, create an annotated editing source named `<stem>.readercontext.<extension>` and generate the clean operational file from it. For example, edit `SKILL.readercontext.md` and render `SKILL.md`.
 
-When the raw source is itself operational or reader-facing—such as `SKILL.md`, a prompt, source code, or a configuration file—keep the canonical file clean and create an annotated sidecar named `<stem>.readercontext.<extension>`. For example, pair `SKILL.md` with `SKILL.readercontext.md`.
+The annotated file is the only editing authority. The clean file is a generated projection for readers and downstream systems. Do not edit the clean file, even for a small or apparently mechanical correction. An edit made without the surrounding reader context is not reader-context-aware and bypasses the method this skill exists to enforce.
 
-The sidecar must:
+The annotated source must:
 
-- contain the complete canonical document in the same order;
+- contain the complete clean document in the same order;
 - add only explicit `READER CONTEXT SIDECAR` comment blocks;
-- model the actual future reader of the canonical artifact, not the current agent or user;
-- remain mechanically synchronized so removing its reader-context blocks reproduces the canonical file byte for byte.
+- model the actual future reader of the clean artifact, not the current agent or user;
+- be the editing authority from which the clean artifact is generated;
+- remain mechanically synchronized so removing its reader-context blocks reproduces the clean file byte for byte.
 
 For a skill, model a fresh agent that has loaded `SKILL.md` because the skill triggered. Assume that agent has no memory of the conversation that produced the skill. Track what the instructions have established, what the agent may misread, and what the next section must clarify for correct execution.
 
-Whenever either file changes, update its counterpart and run the sidecar parity check before considering the edit complete. Never ask the operational reader to ignore embedded session notes; keep those notes out of the operational artifact.
+For every revision:
+
+1. Read the annotated source, including the reader-context blocks around the passage.
+2. Make the prose change in the annotated source and update the affected reader-context blocks.
+3. Run the renderer to replace the clean file.
+4. Run the parity check and reject the revision if the generated output differs from the annotated source with its blocks removed.
+
+If the clean file was edited accidentally, do not preserve that edit as an exception. Recreate the change in the annotated source with its reader context, then regenerate the clean file. Never ask the operational reader to ignore embedded session notes; keep those notes out of the operational artifact.
 
 ## Separate the user session from the reader's context
 
@@ -35,6 +43,13 @@ Maintain two distinct contexts:
 
 Use user-session context to decide what the document should accomplish. Never treat user-session context as knowledge the reader already has.
 
+The user session remains naturally present because the agent is participating in it. Reader context does not. Reconstruct the reader's position deliberately at each point in the document. Keep asking:
+
+1. What does the reader not know here?
+2. What does the reader not care about here?
+
+The first question prevents unexplained assumptions. The second prevents session details, rationales, and concerns from entering the document merely because they matter to the agent and user.
+
 Before drafting, state internally:
 
 1. Who is the reader?
@@ -44,12 +59,15 @@ Before drafting, state internally:
 
 ## Use the reader-context loop
 
-Draft in short passages of roughly one to three paragraphs. In inline mode, insert a hidden block before each passage. In sidecar mode, insert the block only in the annotated sidecar at the corresponding location:
+Draft in short passages of roughly one to three paragraphs. In the annotated source, insert a reader-context block before each passage:
 
 ```markdown
 <!--
-READER CONTEXT
+READER CONTEXT SIDECAR
 Reader model: [What the reader now knows and believes solely from the rendered text.]
+Does not know: [What the reader has not yet been told or cannot yet infer.]
+Cares about: [What currently gives the reader a reason to continue.]
+Does not care about: [User-session details or rationale that do not serve the reader here.]
 Reader voice: "[The reader's likely natural-language reaction, question, doubt, or expectation.]"
 Unresolved: [What remains confusing, unproved, undefined, or emotionally unearned.]
 Next passage: [The single change the next passage should make in the reader's context.]
@@ -59,7 +77,7 @@ Do not assume: [Relevant user-session knowledge that has not yet been taught.]
 
 Then write the passage that performs the stated context change.
 
-After every paragraph, briefly simulate the reader's reaction, even when no new comment block is needed. Add or update a block whenever the reader's state, question, or required next move changes materially. Do not let several pages pass under one stale reader model.
+After every paragraph, briefly simulate the reader's reaction, even when no new comment block is needed. Ask again what the reader still does not know and does not care about. Add or update a block whenever the reader's knowledge, interest, question, or required next move changes materially. Do not let several pages pass under one stale reader model.
 
 Give the simulated reader a real voice. “The reader may be confused” is less useful than: “Why are these arrays allowed to overlap? Won't one feature corrupt another?” The concrete question reveals what must be answered and when.
 
@@ -69,6 +87,9 @@ For every paragraph, verify:
 
 - What new fact, distinction, intuition, proof, or motivation did this paragraph add?
 - Could the reader understand every term from prior rendered text?
+- What does the reader still not know?
+- Why does the reader care about the next detail?
+- What matters in the user session but not to the reader, and should therefore be omitted?
 - What question does the paragraph create?
 - Does the next paragraph answer that question, or deliberately explain why another step must come first?
 - Has the prose changed register—from engineer to mathematician, beginner to expert, manifesto to tutorial—without building a bridge?
@@ -103,6 +124,10 @@ Do not drop research names, conclusions, or distinctions merely because the curr
 ### Writing to the user's latest objection
 
 Do not let the last correction dominate the next draft. Ask whether a fresh reader would naturally have that objection at that location. If yes, stage and answer it. If no, extract the underlying insight and place it where it advances the reader's journey.
+
+### Carrying correction rationale into the document
+
+A correction from the user often includes a reason so the current agent can apply it well. Treat that reason as user-session context, not as reader-facing content. Preserve the correction's effect. Include its rationale only when a fresh reader independently needs the underlying reason to understand, evaluate, or act on the document. State that reason directly; do not narrate the correction, defend the new wording, or explain why an earlier version was wrong.
 
 ### Switching audiences midstream
 
@@ -163,6 +188,7 @@ Finish only when:
 
 - the reader can acquire every necessary concept from the rendered document;
 - every major transition follows from a simulated reader question or need;
+- each passage accounts for what the reader does not yet know and has no reason to care about;
 - reader-context working notes accurately track the current draft;
 - the document's central sentence remains visible in every section's purpose;
 - examples illuminate rather than narrow the thesis;

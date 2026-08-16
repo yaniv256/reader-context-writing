@@ -1,12 +1,15 @@
 ---
 name: reader-context-writing
-description: Draft and revise substantial reader-facing prose by explicitly separating the current user-session context from the reader's evolving knowledge, questions, objections, and expectations, tracked in inline comments or synchronized sidecars. Use for articles, essays, tutorials, reports, white papers, opinion pieces, operational source artifacts, and major rewrites where conversation context, user feedback, jargon, patchwork editing, or unexplained assumptions could leak into the document.
+description: Draft and revise substantial reader-facing prose by explicitly separating the current user-session context from the reader's evolving knowledge, interests, questions, objections, and expectations. Always edit a reader-context-annotated source and mechanically generate its clean reader-facing counterpart. Use for articles, essays, tutorials, reports, white papers, opinion pieces, operational source artifacts, and major rewrites where conversation context, user feedback, jargon, patchwork editing, irrelevant rationale, or unexplained assumptions could leak into the document.
 ---
 
 # Reader Context Writing
 <!--
 READER CONTEXT SIDECAR
 Reader model: A fresh agent knows the skill concerns writing from the eventual reader's perspective, but has not yet learned the operating method.
+Does not know: How to keep the reader's perspective active while the user session remains naturally salient.
+Cares about: Producing a document that a fresh reader can follow without access to the drafting session.
+Does not care about: The conversation, revisions, or naming decisions that produced this skill.
 Reader voice: "Is this a general writing philosophy, or does it require a concrete workflow?"
 Unresolved: The distinction between the current user session and the document reader's experience.
 Next passage: Establish the governing perspective and the role of reader-context working memory.
@@ -15,29 +18,40 @@ Do not assume: Knowledge of the conversation in which this skill was designed.
 
 Write the document as a conversation with its eventual reader—not as a continuation of the current user session or a transcript of the drafting process.
 
-Treat reader-context comments as working memory. Keep them in editable source formats that support non-rendered comments, such as Markdown or HTML. Do not render them in the published document.
+Treat reader-context comments as working memory. Keep them in the annotated source and generate a clean operational file that omits them. Always maintain both files.
 
-## Choose inline comments or a sidecar
+## Always edit the annotated source
 
-Use inline reader-context blocks only when the document's rendered form is the artifact its reader consumes. A comment hidden by the renderer is not hidden from a reader who consumes the raw source.
+For every document, create an annotated editing source named `<stem>.readercontext.<extension>` and generate the clean operational file from it. For example, edit `SKILL.readercontext.md` and render `SKILL.md`.
 
-When the raw source is itself operational or reader-facing—such as `SKILL.md`, a prompt, source code, or a configuration file—keep the canonical file clean and create an annotated sidecar named `<stem>.readercontext.<extension>`. For example, pair `SKILL.md` with `SKILL.readercontext.md`.
+The annotated file is the only editing authority. The clean file is a generated projection for readers and downstream systems. Do not edit the clean file, even for a small or apparently mechanical correction. An edit made without the surrounding reader context is not reader-context-aware and bypasses the method this skill exists to enforce.
 
-The sidecar must:
+The annotated source must:
 
-- contain the complete canonical document in the same order;
+- contain the complete clean document in the same order;
 - add only explicit `READER CONTEXT SIDECAR` comment blocks;
-- model the actual future reader of the canonical artifact, not the current agent or user;
-- remain mechanically synchronized so removing its reader-context blocks reproduces the canonical file byte for byte.
+- model the actual future reader of the clean artifact, not the current agent or user;
+- be the editing authority from which the clean artifact is generated;
+- remain mechanically synchronized so removing its reader-context blocks reproduces the clean file byte for byte.
 
 For a skill, model a fresh agent that has loaded `SKILL.md` because the skill triggered. Assume that agent has no memory of the conversation that produced the skill. Track what the instructions have established, what the agent may misread, and what the next section must clarify for correct execution.
 
-Whenever either file changes, update its counterpart and run the sidecar parity check before considering the edit complete. Never ask the operational reader to ignore embedded session notes; keep those notes out of the operational artifact.
+For every revision:
+
+1. Read the annotated source, including the reader-context blocks around the passage.
+2. Make the prose change in the annotated source and update the affected reader-context blocks.
+3. Run the renderer to replace the clean file.
+4. Run the parity check and reject the revision if the generated output differs from the annotated source with its blocks removed.
+
+If the clean file was edited accidentally, do not preserve that edit as an exception. Recreate the change in the annotated source with its reader context, then regenerate the clean file. Never ask the operational reader to ignore embedded session notes; keep those notes out of the operational artifact.
 
 ## Separate the user session from the reader's context
 <!--
 READER CONTEXT SIDECAR
-Reader model: The agent knows comments may be inline when hidden from the actual reader, or kept in a synchronized sidecar when raw source is consumed directly.
+Reader model: The agent knows every document has an annotated editing source and a generated clean output.
+Does not know: The exact boundary between information available in the user session and information established for the reader.
+Cares about: Keeping operational source clean while retaining useful writing-state memory.
+Does not care about: Why this file-pair convention was proposed or which earlier convention it replaced.
 Reader voice: "Whose context am I tracking, and what information am I forbidden to carry across?"
 Unresolved: A precise boundary between material learned while drafting and material taught by the document.
 Next passage: Define user-session context and reader context as separate state.
@@ -51,6 +65,13 @@ Maintain two distinct contexts:
 
 Use user-session context to decide what the document should accomplish. Never treat user-session context as knowledge the reader already has.
 
+The user session remains naturally present because the agent is participating in it. Reader context does not. Reconstruct the reader's position deliberately at each point in the document. Keep asking:
+
+1. What does the reader not know here?
+2. What does the reader not care about here?
+
+The first question prevents unexplained assumptions. The second prevents session details, rationales, and concerns from entering the document merely because they matter to the agent and user.
+
 Before drafting, state internally:
 
 1. Who is the reader?
@@ -62,18 +83,24 @@ Before drafting, state internally:
 <!--
 READER CONTEXT SIDECAR
 Reader model: The agent understands the two contexts and has an initial reader contract, but still needs an executable drafting routine.
+Does not know: Which reader-state fields to record or how often to refresh them.
+Cares about: A repeatable loop that controls the next passage rather than merely describing the audience once.
+Does not care about: The user-session discussion that led to the chosen fields.
 Reader voice: "What exactly do I write down as the reader moves through the document?"
 Unresolved: The cadence, fields, and granularity of reader-state updates.
 Next passage: Provide the working-memory template and explain how to keep it current.
 Do not assume: That a single up-front audience description remains accurate throughout a long draft.
 -->
 
-Draft in short passages of roughly one to three paragraphs. In inline mode, insert a hidden block before each passage. In sidecar mode, insert the block only in the annotated sidecar at the corresponding location:
+Draft in short passages of roughly one to three paragraphs. In the annotated source, insert a reader-context block before each passage:
 
 ```markdown
 <!--
-READER CONTEXT
+READER CONTEXT SIDECAR
 Reader model: [What the reader now knows and believes solely from the rendered text.]
+Does not know: [What the reader has not yet been told or cannot yet infer.]
+Cares about: [What currently gives the reader a reason to continue.]
+Does not care about: [User-session details or rationale that do not serve the reader here.]
 Reader voice: "[The reader's likely natural-language reaction, question, doubt, or expectation.]"
 Unresolved: [What remains confusing, unproved, undefined, or emotionally unearned.]
 Next passage: [The single change the next passage should make in the reader's context.]
@@ -83,7 +110,7 @@ Do not assume: [Relevant user-session knowledge that has not yet been taught.]
 
 Then write the passage that performs the stated context change.
 
-After every paragraph, briefly simulate the reader's reaction, even when no new comment block is needed. Add or update a block whenever the reader's state, question, or required next move changes materially. Do not let several pages pass under one stale reader model.
+After every paragraph, briefly simulate the reader's reaction, even when no new comment block is needed. Ask again what the reader still does not know and does not care about. Add or update a block whenever the reader's knowledge, interest, question, or required next move changes materially. Do not let several pages pass under one stale reader model.
 
 Give the simulated reader a real voice. “The reader may be confused” is less useful than: “Why are these arrays allowed to overlap? Won't one feature corrupt another?” The concrete question reveals what must be answered and when.
 
@@ -91,6 +118,9 @@ Give the simulated reader a real voice. “The reader may be confused” is less
 <!--
 READER CONTEXT SIDECAR
 Reader model: The agent can now create reader-context blocks and simulate concrete reader reactions.
+Does not know: How to convert the tracked state into paragraph order and transitions.
+Cares about: Making each passage prepare the reader for the next.
+Does not care about: Editorial rationale that does not change the reader's understanding or motivation.
 Reader voice: "How do I use those reactions to control explanatory order rather than merely annotate it?"
 Unresolved: The test for whether one paragraph has prepared the next.
 Next passage: Turn the reader model into paragraph-level sequencing checks.
@@ -101,6 +131,9 @@ For every paragraph, verify:
 
 - What new fact, distinction, intuition, proof, or motivation did this paragraph add?
 - Could the reader understand every term from prior rendered text?
+- What does the reader still not know?
+- Why does the reader care about the next detail?
+- What matters in the user session but not to the reader, and should therefore be omitted?
 - What question does the paragraph create?
 - Does the next paragraph answer that question, or deliberately explain why another step must come first?
 - Has the prose changed register—from engineer to mathematician, beginner to expert, manifesto to tutorial—without building a bridge?
@@ -113,6 +146,9 @@ When a construction creates an obvious concern, answer it at the point of introd
 <!--
 READER CONTEXT SIDECAR
 Reader model: The agent knows how to sequence ideas from the reader's questions and prior knowledge.
+Does not know: How to recognize sentences that remain grammatically sound while leaking the user session.
+Cares about: Keeping the rendered prose self-contained and relevant.
+Does not care about: Why the user requested a correction unless that reason independently serves the document.
 Reader voice: "Even with good structure, how do I catch prose that is secretly replying to the user or narrating my drafting process?"
 Unresolved: Recognizable symptoms of user-session residue in rendered prose.
 Next passage: Name leakage patterns and distinguish useful reader-inclusive language from private-process narration.
@@ -138,6 +174,9 @@ Inclusive “we” is not automatically a problem. Keep it when it genuinely inc
 <!--
 READER CONTEXT SIDECAR
 Reader model: The agent can detect direct conversation leakage and understands that inclusive “we” is context-dependent.
+Does not know: Which structural failures can survive a sentence-level leakage scan.
+Cares about: Avoiding audience shifts, defensive prose, scope drift, and stale reader models.
+Does not care about: Preserving the emotional emphasis or sequence of corrections from the user session.
 Reader voice: "What are the less obvious ways a draft can still follow the user session instead of the reader's context?"
 Unresolved: Structural and editorial failure modes that survive a sentence-level leakage scan.
 Next passage: Provide concrete correction rules for the most common failures.
@@ -151,6 +190,10 @@ Do not drop research names, conclusions, or distinctions merely because the curr
 ### Writing to the user's latest objection
 
 Do not let the last correction dominate the next draft. Ask whether a fresh reader would naturally have that objection at that location. If yes, stage and answer it. If no, extract the underlying insight and place it where it advances the reader's journey.
+
+### Carrying correction rationale into the document
+
+A correction from the user often includes a reason so the current agent can apply it well. Treat that reason as user-session context, not as reader-facing content. Preserve the correction's effect. Include its rationale only when a fresh reader independently needs the underlying reason to understand, evaluate, or act on the document. State that reason directly; do not narrate the correction, defend the new wording, or explain why an earlier version was wrong.
 
 ### Switching audiences midstream
 
@@ -180,6 +223,9 @@ Treat hidden comments as part of the source. Whenever prose changes, update near
 <!--
 READER CONTEXT SIDECAR
 Reader model: The agent knows the main failure modes, including scope drift, defensive hedging, side quests, structural patching, and stale comments.
+Does not know: How much mechanism to teach while maintaining a strong argument.
+Cares about: Making prescriptions understandable and actionable without losing focus.
+Does not care about: A complete toy implementation when the document's claim does not require one.
 Reader voice: "How should I balance making a strong claim with teaching enough for the claim to feel actionable?"
 Unresolved: The proper rhythm between prescription, mechanism, evidence, and consequence.
 Next passage: Define a reusable manifesto–tutorial alternation without forcing a toy implementation.
@@ -199,6 +245,9 @@ Do not confuse “tutorial” with “build a complete toy project.” A tutoria
 <!--
 READER CONTEXT SIDECAR
 Reader model: The agent understands the desired drafting rhythm and the difference between explanation and an exhaustive project.
+Does not know: How to review the finished draft without letting session knowledge fill its gaps.
+Cares about: A revision method that tests the actual reader journey and the visible prose independently.
+Does not care about: The agent's intended meaning when the document itself does not communicate it.
 Reader voice: "Once the draft exists, how do I review the whole reader journey without letting my intent excuse what the page fails to say?"
 Unresolved: A revision procedure that independently checks comprehension and conversation leakage.
 Next passage: Separate the reader-journey audit from the rendered-prose leakage audit.
@@ -225,6 +274,9 @@ Rewrite each flagged sentence as direct exposition, or delete it if it performs 
 <!--
 READER CONTEXT SIDECAR
 Reader model: The agent has a complete drafting and two-pass revision method.
+Does not know: The exact evidence required before the work can be considered finished.
+Cares about: A stopping rule that proves comprehension, relevance, continuity, and clean separation from the user session.
+Does not care about: How much effort the drafting session required or how many corrections preceded the final document.
 Reader voice: "What evidence tells me the document is actually finished?"
 Unresolved: A concise stopping condition that covers knowledge transfer, transitions, scope, comment accuracy, and user-session residue.
 Next passage: State the completion gate and compress the skill into one governing rule.
@@ -235,6 +287,7 @@ Finish only when:
 
 - the reader can acquire every necessary concept from the rendered document;
 - every major transition follows from a simulated reader question or need;
+- each passage accounts for what the reader does not yet know and has no reason to care about;
 - reader-context working notes accurately track the current draft;
 - the document's central sentence remains visible in every section's purpose;
 - examples illuminate rather than narrow the thesis;
