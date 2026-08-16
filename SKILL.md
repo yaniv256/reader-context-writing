@@ -203,6 +203,27 @@ Use this procedure:
 
 Keep the prompt, rubric, baseline, revision recommendation, post-revision evaluation, and resolution trace beside the document whenever the repository supports review artifacts. A non-blinded same-session audit demonstrates that the prompt operationalizes the defect; it does not count as independent validation. When independence matters, give a fresh evaluator only the clean document, reader contract, frozen prompt, and rubric.
 
+## Make every scaling claim complete
+
+Phrases such as “the signal is order $n$” or “the noise has scale $1/\sqrt d$” are not explanations. Before accepting an asymptotic or scale claim, require the passage to identify:
+
+1. the exact scalar or random variable being measured;
+2. how it is formed from the preceding objects;
+3. the statistic, norm, or functional called its magnitude;
+4. which parameter varies and which quantities are held fixed;
+5. whether the claim is an upper bound, lower bound, typical magnitude, expectation, standard deviation, or high-probability statement;
+6. the assumptions that prevent cancellation, concentration, or dependence from changing the result.
+
+Reject “order” as a substitute for these choices. In particular, $S=O(n)$ supplies only an upper bound and cannot justify division by a signal assumed to have size proportional to $n$. If a relative-error calculation needs $|S|$ bounded below, state that assumption and preserve the denominator in the displayed result. Apply this audit to the complete document whenever one incomplete scaling claim is found.
+
+Formal correctness is not audience fit. A proof or appendix fails when the intended reader cannot reconstruct what is being compared, why the terms exist, or what question the algebra answers. Before a general many-term derivation, give the smallest concrete named example that exposes the bookkeeping, then generalize. Equations should summarize an argument the reader already understands; they must not be the first place the argument becomes available. Audit mathematical support for teachability as well as validity.
+
+## Treat target rendering as a compatibility contract
+
+When the delivery surface renders Markdown, mathematics, diagrams, embeds, or other structured content, validate the clean document in that actual renderer. Source validity does not prove deployed readability.
+
+For GitHub-bound mathematics, read `references/github-math-compatibility.md`, run `scripts/check_github_math_compatibility.py`, and follow its live-render release gate. Use only commands in the tested registry. Unknown commands fail closed until their Markdown preprocessing, live math component, and final pixels have been tested. Every recurring failure must expand the registry, checker, reference, and regression evidence; do not fix another isolated occurrence of an already observed incompatibility.
+
 ## Completion standard
 
 Finish only when:

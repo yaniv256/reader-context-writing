@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "target": "github.com Markdown files",
+  "tested_at": "2026-08-16",
+  "renderer_path": "GitHub /markdown endpoint followed by the live github.com math-renderer custom element",
+  "allowed_commands": [
+    "approx",
+    "arctan",
+    "begin",
+    "cap",
+    "cdots",
+    "cos",
+    "end",
+    "frac",
+    "in",
+    "ldots",
+    "left",
+    "mathbb",
+    "mathrm",
+    "mu",
+    "ne",
+    "phi",
+    "pi",
+    "quad",
+    "qquad",
+    "right",
+    "sigma",
+    "sin",
+    "sqrt",
+    "sum",
+    "text",
+    "theta",
+    "times",
+    "top",
+    "varepsilon",
+    "vdots"
+  ],
+  "forbidden_commands": {
+    "operatorname": "GitHub's live math component reports: The following macros are not allowed: operatorname. Use a tested alternative such as \\mathrm for a short fixed label."
+  },
+  "markdown_escape_hazards": {
+    ",": "The Markdown layer converts \\, to a literal comma before math rendering.",
+    "!": "The Markdown layer converts \\! to a literal exclamation mark before math rendering.",
+    ";": "The Markdown layer converts \\; to a literal semicolon before math rendering.",
+    ":": "The Markdown layer converts \\: to a literal colon before math rendering."
+  }
+}
