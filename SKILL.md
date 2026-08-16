@@ -162,6 +162,8 @@ For explanatory opinion writing, alternate between prescription and enablement:
 - Supply proof or derivation where the claim depends on it.
 - Return to the engineering consequence.
 
+When a mathematical claim needs more support than the main line can carry, keep the claim's definitions, assumptions, status, governing intuition, and a precise pointer in the body. Put the full proof or derivation and its limits in a named appendix. Do not make the reader choose between smooth prose and a believable claim.
+
 Do not confuse “tutorial” with “build a complete toy project.” A tutorial can remain at the level of general mechanisms, equations, design choices, and implementation patterns.
 
 ## Revise with two passes
@@ -181,6 +183,25 @@ Temporarily ignore hidden comments and scan only rendered prose. Flag any senten
 - an apology or defense that the reader did not request.
 
 Rewrite each flagged sentence as direct exposition, or delete it if it performs no reader-facing work.
+
+## Turn every discovered defect into a whole-document revision loop
+
+
+When a reader or reviewer identifies a writing defect, do not begin by fixing that passage. Treat the defect as evidence of a class of failures that may occur elsewhere in the document.
+
+Use this procedure:
+
+1. **Name the failure class.** Describe the general reader failure without quoting or identifying the known passage. Examples include missing symbol provenance, unsupported mathematical claims, conversation leakage, misplaced qualifications, or supporting detail that interrupts the main line.
+2. **Tune an audit prompt.** Create or revise a prompt that would detect the failure from the rendered document alone. It must read the complete document, reconstruct reader state, produce evidence for each finding, and include false-positive controls. The saved prompt must not reveal the positive-control passage.
+3. **Freeze a quantitative rubric.** Before revising, record dimensions, weights totaling 100, full-credit standards, and calibration anchors. The rubric must penalize the discovered failure class without allowing improvement in one dimension to hide damage in another.
+4. **Run the baseline audit.** Apply the prompt and rubric to the full clean document from top to bottom. Record the score, all related findings, and a dependency-ordered recommendation for revision.
+5. **Revise the complete annotated source.** Read it from top to bottom and repair every supported finding in dependency order. Update affected reader-context blocks. Rewrite broadly when local fixes would damage flow or leave the governing structure inconsistent.
+6. **Regenerate the clean document.** Never patch the clean projection. Render it from the annotated authority and verify byte-for-byte sidecar parity.
+7. **Rerun the identical audit and rubric.** Read the complete revised document, not only the changed passages. Record the new score and an item-level readback showing whether every baseline finding was resolved, remains open, or changed form.
+8. **Reject self-congratulation.** Do not raise the score because effort was spent or because the known example improved. Every point increase needs document evidence under the frozen anchors. Record declared limitations and new regressions.
+9. **Iterate when necessary.** If the second pass exposes another general failure class, tune the prompt again and repeat the full loop. Do not patch the new example in isolation.
+
+Keep the prompt, rubric, baseline, revision recommendation, post-revision evaluation, and resolution trace beside the document whenever the repository supports review artifacts. A non-blinded same-session audit demonstrates that the prompt operationalizes the defect; it does not count as independent validation. When independence matters, give a fresh evaluator only the clean document, reader contract, frozen prompt, and rubric.
 
 ## Completion standard
 
