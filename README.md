@@ -11,7 +11,15 @@ This private repository is the review home for the skill exported from ChatGPT o
 ## Contents
 
 - `SKILL.md` — the complete skill instructions.
+- `SKILL.readercontext.md` — a synchronized annotated view that models a fresh agent reading the skill.
 - `agents/openai.yaml` — OpenAI product metadata and the default invocation prompt.
+- `scripts/check_reader_context_sidecar.py` — verifies that stripping `READER CONTEXT SIDECAR` blocks from the annotated view reproduces `SKILL.md` byte for byte.
+
+Run the synchronization check with:
+
+```sh
+python3 scripts/check_reader_context_sidecar.py SKILL.md SKILL.readercontext.md
+```
 
 ## Review status
 

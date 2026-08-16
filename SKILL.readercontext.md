@@ -4,6 +4,14 @@ description: Draft and revise substantial reader-facing prose by explicitly trac
 ---
 
 # Reader Context Writing
+<!--
+READER CONTEXT SIDECAR
+Reader model: A fresh agent knows the skill concerns writing from the eventual reader's perspective, but has not yet learned the operating method.
+Reader voice: "Is this a general writing philosophy, or does it require a concrete workflow?"
+Unresolved: The distinction between the author's conversation and the document reader's experience.
+Next passage: Establish the governing perspective and the role of reader-context working memory.
+Do not assume: Knowledge of the conversation in which this skill was designed.
+-->
 
 Write the document as a conversation with its eventual reader—not as a continuation of the conversation with the user, a debate with a co-author, or a transcript of the drafting process.
 
@@ -27,6 +35,14 @@ For a skill, model a fresh agent that has loaded `SKILL.md` because the skill tr
 Whenever either file changes, update its counterpart and run the sidecar parity check before considering the edit complete. Never ask the operational reader to ignore embedded author notes; keep those notes out of the operational artifact.
 
 ## Separate the two conversations
+<!--
+READER CONTEXT SIDECAR
+Reader model: The agent knows comments may be inline when hidden from the actual reader, or kept in a synchronized sidecar when raw source is consumed directly.
+Reader voice: "Whose context am I tracking, and what information am I forbidden to carry across?"
+Unresolved: A precise boundary between material learned while drafting and material taught by the document.
+Next passage: Define author context and reader context as separate state.
+Do not assume: That the eventual reader saw the prompt, research discussion, corrections, or earlier drafts.
+-->
 
 Maintain two distinct contexts:
 
@@ -43,6 +59,14 @@ Before drafting, state internally:
 4. What central sentence must remain true throughout the document?
 
 ## Use the reader-context loop
+<!--
+READER CONTEXT SIDECAR
+Reader model: The agent understands the two contexts and has an initial reader contract, but still needs an executable drafting routine.
+Reader voice: "What exactly do I write down as the reader moves through the document?"
+Unresolved: The cadence, fields, and granularity of reader-state updates.
+Next passage: Provide the working-memory template and explain how to keep it current.
+Do not assume: That a single up-front audience description remains accurate throughout a long draft.
+-->
 
 Draft in short passages of roughly one to three paragraphs. In inline mode, insert a hidden block before each passage. In sidecar mode, insert the block only in the annotated sidecar at the corresponding location:
 
@@ -64,6 +88,14 @@ After every paragraph, briefly simulate the reader's reaction, even when no new 
 Give the simulated reader a real voice. “The reader may be confused” is less useful than: “Why are these arrays allowed to overlap? Won't one feature corrupt another?” The concrete question reveals what must be answered and when.
 
 ## Make each passage earn the next one
+<!--
+READER CONTEXT SIDECAR
+Reader model: The agent can now create reader-context blocks and simulate concrete reader reactions.
+Reader voice: "How do I use those reactions to control explanatory order rather than merely annotate it?"
+Unresolved: The test for whether one paragraph has prepared the next.
+Next passage: Turn the reader model into paragraph-level sequencing checks.
+Do not assume: That logical correctness alone makes a transition understandable.
+-->
 
 For every paragraph, verify:
 
@@ -78,6 +110,14 @@ Introduce notation only after the object has an intuitive or concrete meaning. I
 When a construction creates an obvious concern, answer it at the point of introduction. Do not present a formula that appears to mix signals and postpone the anti-interference mechanism until several sections later.
 
 ## Prevent conversation leakage
+<!--
+READER CONTEXT SIDECAR
+Reader model: The agent knows how to sequence ideas from the reader's questions and prior knowledge.
+Reader voice: "Even with good structure, how do I catch prose that is secretly replying to the user or narrating my drafting process?"
+Unresolved: Recognizable symptoms of author-room residue in rendered prose.
+Next passage: Name leakage patterns and distinguish useful authorial voice from private-process narration.
+Do not assume: That grammatically polished prose is reader-facing prose.
+-->
 
 Scan rendered prose for sentences that make sense only as replies to the user or as notes to oneself. Rewrite them as claims that serve the reader.
 
@@ -95,6 +135,14 @@ Common leakage patterns include:
 Authorial “we” is not automatically a problem. Keep it when it genuinely includes the reader in a derivation, experiment, or shared engineering prescription. Remove it when it narrates the writing process or preserves the emotional shape of a private debate.
 
 ## Correct the recurring failure modes
+<!--
+READER CONTEXT SIDECAR
+Reader model: The agent can detect direct conversation leakage and understands that authorial “we” is context-dependent.
+Reader voice: "What are the less obvious ways a draft can still follow the author's context instead of the reader's?"
+Unresolved: Structural and editorial failure modes that survive a sentence-level leakage scan.
+Next passage: Provide concrete correction rules for the most common failures.
+Do not assume: That local edits can repair a draft whose audience or explanatory order has changed.
+-->
 
 ### Assuming shared context
 
@@ -129,6 +177,14 @@ Before revising a long document, read it completely from beginning to end. Recon
 Treat hidden comments as part of the source. Whenever prose changes, update nearby reader context. A comment that describes an earlier draft is worse than no comment because it gives the next writer a false model of the reader.
 
 ## Balance manifesto and tutorial
+<!--
+READER CONTEXT SIDECAR
+Reader model: The agent knows the main failure modes, including scope drift, defensive hedging, side quests, structural patching, and stale comments.
+Reader voice: "How should I balance making a strong claim with teaching enough for the claim to feel actionable?"
+Unresolved: The proper rhythm between prescription, mechanism, evidence, and consequence.
+Next passage: Define a reusable manifesto–tutorial alternation without forcing a toy implementation.
+Do not assume: That explanatory depth requires turning the document into a complete build tutorial.
+-->
 
 For explanatory opinion writing, alternate between prescription and enablement:
 
@@ -140,6 +196,14 @@ For explanatory opinion writing, alternate between prescription and enablement:
 Do not confuse “tutorial” with “build a complete toy project.” A tutorial can remain at the level of general mechanisms, equations, design choices, and implementation patterns.
 
 ## Revise with two passes
+<!--
+READER CONTEXT SIDECAR
+Reader model: The agent understands the desired drafting rhythm and the difference between explanation and an exhaustive project.
+Reader voice: "Once the draft exists, how do I review the whole reader journey without letting my intent excuse what the page fails to say?"
+Unresolved: A revision procedure that independently checks comprehension and conversation leakage.
+Next passage: Separate the reader-journey audit from the rendered-prose leakage audit.
+Do not assume: That checking hidden comments alone proves the visible document works.
+-->
 
 ### Reader-journey pass
 
@@ -158,6 +222,14 @@ Temporarily ignore hidden comments and scan only rendered prose. Flag any senten
 Rewrite each flagged sentence as direct exposition, or delete it if it performs no reader-facing work.
 
 ## Completion standard
+<!--
+READER CONTEXT SIDECAR
+Reader model: The agent has a complete drafting and two-pass revision method.
+Reader voice: "What evidence tells me the document is actually finished?"
+Unresolved: A concise stopping condition that covers knowledge transfer, transitions, scope, comment accuracy, and author-room residue.
+Next passage: State the completion gate and compress the skill into one governing rule.
+Do not assume: That absence of obvious grammatical defects means the reader journey is complete.
+-->
 
 Finish only when:
 
