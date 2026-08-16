@@ -1,11 +1,11 @@
 ---
 name: reader-context-writing
-description: Draft and revise substantial reader-facing prose by explicitly tracking the reader's evolving knowledge, questions, objections, and expectations in inline comments or synchronized sidecars. Use for articles, essays, tutorials, reports, white papers, opinion pieces, operational source artifacts, and major rewrites where conversation context, co-author debate, jargon, patchwork editing, or unexplained assumptions could leak into the document.
+description: Draft and revise substantial reader-facing prose by explicitly separating the current user-session context from the reader's evolving knowledge, questions, objections, and expectations, tracked in inline comments or synchronized sidecars. Use for articles, essays, tutorials, reports, white papers, opinion pieces, operational source artifacts, and major rewrites where conversation context, user feedback, jargon, patchwork editing, or unexplained assumptions could leak into the document.
 ---
 
 # Reader Context Writing
 
-Write the document as a conversation with its eventual reader—not as a continuation of the conversation with the user, a debate with a co-author, or a transcript of the drafting process.
+Write the document as a conversation with its eventual reader—not as a continuation of the current user session or a transcript of the drafting process.
 
 Treat reader-context comments as working memory. Keep them in editable source formats that support non-rendered comments, such as Markdown or HTML. Do not render them in the published document.
 
@@ -19,21 +19,21 @@ The sidecar must:
 
 - contain the complete canonical document in the same order;
 - add only explicit `READER CONTEXT SIDECAR` comment blocks;
-- model the actual future reader of the canonical artifact, not the author or reviewer;
+- model the actual future reader of the canonical artifact, not the current agent or user;
 - remain mechanically synchronized so removing its reader-context blocks reproduces the canonical file byte for byte.
 
 For a skill, model a fresh agent that has loaded `SKILL.md` because the skill triggered. Assume that agent has no memory of the conversation that produced the skill. Track what the instructions have established, what the agent may misread, and what the next section must clarify for correct execution.
 
-Whenever either file changes, update its counterpart and run the sidecar parity check before considering the edit complete. Never ask the operational reader to ignore embedded author notes; keep those notes out of the operational artifact.
+Whenever either file changes, update its counterpart and run the sidecar parity check before considering the edit complete. Never ask the operational reader to ignore embedded session notes; keep those notes out of the operational artifact.
 
-## Separate the two conversations
+## Separate the user session from the reader's context
 
 Maintain two distinct contexts:
 
-- **Author context:** everything learned from the user, prior drafts, objections, research, and editorial discussion.
+- **User-session context:** everything available in the current agent's session with the user, including messages, prior drafts, corrections, objections, research, tool results, and editorial discussion.
 - **Reader context:** only what the rendered document has actually told the reader, plus reasonable knowledge implied by the declared audience.
 
-Use author context to decide what the article should accomplish. Never treat author context as knowledge the reader already has.
+Use user-session context to decide what the document should accomplish. Never treat user-session context as knowledge the reader already has.
 
 Before drafting, state internally:
 
@@ -53,7 +53,7 @@ Reader model: [What the reader now knows and believes solely from the rendered t
 Reader voice: "[The reader's likely natural-language reaction, question, doubt, or expectation.]"
 Unresolved: [What remains confusing, unproved, undefined, or emotionally unearned.]
 Next passage: [The single change the next passage should make in the reader's context.]
-Do not assume: [Relevant author-context knowledge that has not yet been taught.]
+Do not assume: [Relevant user-session knowledge that has not yet been taught.]
 -->
 ```
 
@@ -88,19 +88,19 @@ Common leakage patterns include:
 - “The clean response to this objection is...” when the reader has not raised it.
 - “Later we will explain...” used to postpone an explanation needed now.
 - “The tutorial point is...” or “what matters for us...”
-- defensive novelty disclaimers inherited from an author debate;
+- defensive novelty disclaimers inherited from the user session;
 - unexplained references such as “this problem,” “the previous example,” or “our scheme” whose antecedent exists only in conversation;
 - emphasis that reflects what the user recently corrected rather than what the reader needs emphasized.
 
-Authorial “we” is not automatically a problem. Keep it when it genuinely includes the reader in a derivation, experiment, or shared engineering prescription. Remove it when it narrates the writing process or preserves the emotional shape of a private debate.
+Inclusive “we” is not automatically a problem. Keep it when it genuinely includes the reader in a derivation, experiment, or shared engineering prescription. Remove it when it narrates the writing process or preserves the emotional shape of the user session.
 
 ## Correct the recurring failure modes
 
 ### Assuming shared context
 
-Do not drop research names, conclusions, or distinctions merely because the author and user already understand them. Teach the mechanism in ordinary language first. Let terminology become a label for something the reader already recognizes.
+Do not drop research names, conclusions, or distinctions merely because the current agent and user already understand them. Teach the mechanism in ordinary language first. Let terminology become a label for something the reader already recognizes.
 
-### Writing to the co-author's latest objection
+### Writing to the user's latest objection
 
 Do not let the last correction dominate the next draft. Ask whether a fresh reader would naturally have that objection at that location. If yes, stage and answer it. If no, extract the underlying insight and place it where it advances the reader's journey.
 
@@ -143,7 +143,7 @@ Do not confuse “tutorial” with “build a complete toy project.” A tutoria
 
 ### Reader-journey pass
 
-Read the complete rendered prose in order while ignoring author intent. At each hidden block, test whether its reader model follows from the preceding rendered text. Repair missing definitions, premature abstractions, unanswered questions, scope drift, and misplaced objections.
+Read the complete rendered prose in order while ignoring what the current session intended. At each hidden block, test whether its reader model follows from the preceding rendered text. Repair missing definitions, premature abstractions, unanswered questions, scope drift, and misplaced objections.
 
 ### Conversation-leakage pass
 
@@ -164,10 +164,10 @@ Finish only when:
 - the reader can acquire every necessary concept from the rendered document;
 - every major transition follows from a simulated reader question or need;
 - reader-context working notes accurately track the current draft;
-- the article's central sentence remains visible in every section's purpose;
+- the document's central sentence remains visible in every section's purpose;
 - examples illuminate rather than narrow the thesis;
-- rendered prose contains no author-room residue;
-- objections appear where the reader would generate them, not where the co-author happened to raise them.
+- rendered prose contains no user-session residue;
+- objections appear where the reader would generate them, not where the user happened to raise them.
 
 The governing rule is:
 
