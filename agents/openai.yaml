@@ -1,0 +1,14 @@
+interface:
+  display_name: Reader Context Writing
+  short_description: Write from the reader’s evolving context
+  default_prompt: Use $reader-context-writing to draft or revise this article around
+    the reader’s evolving questions and understanding.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true
