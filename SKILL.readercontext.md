@@ -168,6 +168,8 @@ Common leakage patterns include:
 - unexplained references such as “this problem,” “the previous example,” or “our scheme” whose antecedent exists only in conversation;
 - emphasis that reflects what the user recently corrected rather than what the reader needs emphasized.
 
+Also flag **diagnostic marginalia disguised as exposition**: sentences such as “this is the missing condition,” “this fixes the earlier problem,” “that is the key distinction behind the claim,” or “the previous version failed because...”. These sentences often sound informative to the writer because the user session supplies the defect being diagnosed. A fresh reader encounters an unnamed earlier claim, an invisible alternative draft, or an editorial verdict. Delete the sentence when the surrounding explanation already establishes the fact. Otherwise replace it with the direct domain consequence—for example, “Adding terms increases the total only when their average contribution does not approach zero.”
+
 Inclusive “we” is not automatically a problem. Keep it when it genuinely includes the reader in a derivation, experiment, or shared engineering prescription. Remove it when it narrates the writing process or preserves the emotional shape of the user session.
 
 ## Correct the recurring failure modes
@@ -271,6 +273,8 @@ Temporarily ignore hidden comments and scan only rendered prose. Flag any senten
 - an apology or defense that the reader did not request.
 
 Rewrite each flagged sentence as direct exposition, or delete it if it performs no reader-facing work.
+
+This pass is mandatory after the final substantive revision, even if an earlier leakage pass was clean. Run it on the newly generated clean document, not from memory of the annotated edit. Search explicitly for diagnostic words such as `missing`, `fix`, `correction`, `earlier`, `previous version`, `failure`, and `behind the claim`; inspect each occurrence in context rather than treating the search as either proof of failure or proof of cleanliness.
 
 ## Turn every discovered defect into a whole-document revision loop
 
