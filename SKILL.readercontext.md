@@ -335,6 +335,8 @@ Keep the prompt, rubric, baseline, revision recommendation, post-revision evalua
 
 ### Maintain a named failure-mode registry
 
+Read `references/failure-modes.md` in full whenever writing, revising, or auditing a document. It contains the skill's reusable starter taxonomy and the rules for evolving it. Treat that reference as **fluid, not canonical doctrine**: add, rename, merge, sharpen, or retire failure modes when calibrated work justifies the change. Edit only `references/failure-modes.readercontext.md`, then regenerate the clean reference.
+
 Every writing project must keep a durable registry at `reviews/writing-failure-modes/`. Store an annotated `registry.readercontext.md`, generate `registry.md`, and keep each reusable audit prompt in the same directory. The registry is the index; prompt files are the executable checks. Do not leave a useful prompt only in conversation history or in a one-off review report.
 
 Give every failure mode a short, memorable name. A name is not decoration: it gives future writers and reviewers a compact handle that is easier to recall and apply consistently than an abstract paragraph of policy. Treat the claim that memorable human language directs an agent's attention as a useful compliance heuristic, not a proven account of model internals.
@@ -349,16 +351,7 @@ For each registry entry, record:
 - calibration evidence, including the distinct-location count and false positives;
 - last document and date on which the prompt was run.
 
-Prefer names that evoke the error without requiring the originating conversation. Examples:
-
-- **Humpty Dumpty:** use a familiar technical word or symbol for a quantity that violates its conventional meaning, range, normalization, or contract.
-- **Red Herring:** analyze a valid internal quantity that does not answer the reader's or product's actual question.
-- **Mumbling:** write a sentence aimed at the writer, a past reviewer, or someone else who is not in the room. The intended reader merely overhears an internal monologue that was not addressed to them.
-- **The Volunteered Alibi:** address the reader with an unsolicited defense that makes an otherwise unremarkable choice look suspicious. Keep this distinct from Mumbling: Mumbling fails audience address; the Volunteered Alibi addresses the correct reader but produces suspicion rather than reassurance.
-- **The Sirens of Detail:** follow attractive details before the reader has reached the question that makes them valuable. Detail is the continent containing the treasure; premature detail sings at the harbor entrance and shipwrecks the argument before the reader reaches that depth. Move the detail to the point of reader need, an appendix, an endnote, or a linked derivation—do not discard valuable support merely because its first placement was wrong.
-- **Railroading:** write for one imaginary, perfectly predictable reader and force the whole audience through one reading order or depth. Model the audience as a party whose members have different interests. Preserve a clear main path while signposting meaningful branches through section links, cross-references, appendices, endnotes, footnotes, indexes, or clearly labeled optional depth. A choice is meaningful only when it helps a reader reach material they care about or bypass material they do not yet need.
-
-When a new defect matches an existing entry, improve and rerun that prompt rather than creating a synonym. When it is genuinely different, add a new named entry before revision.
+Prefer names that evoke the error without requiring the originating conversation. When a new defect matches an existing reference entry, improve and rerun that prompt rather than creating a synonym. When it is genuinely different, add a new named entry before revision. When an entry no longer helps agents detect a coherent failure class, merge or retire it rather than preserving taxonomy for its own sake.
 
 ## Make every scaling claim complete
 
