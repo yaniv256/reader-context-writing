@@ -254,8 +254,8 @@ Prefer names that evoke the error without requiring the originating conversation
 
 - **Humpty Dumpty:** use a familiar technical word or symbol for a quantity that violates its conventional meaning, range, normalization, or contract.
 - **Red Herring:** analyze a valid internal quantity that does not answer the reader's or product's actual question.
-- **Mumbling:** voice the writer's internal drafting thoughts instead of saying only what the reader needs.
-- **The Volunteered Alibi:** defend a choice against an objection the reader did not have, thereby making an otherwise unremarkable choice look suspicious. Keep this distinct from Mumbling: Mumbling exposes internal thought; the Volunteered Alibi turns the writer from bystander into suspect by introducing an unnecessary defense.
+- **Mumbling:** write a sentence aimed at the writer, a past reviewer, or someone else who is not in the room. The intended reader merely overhears an internal monologue that was not addressed to them.
+- **The Volunteered Alibi:** address the reader with an unsolicited defense that makes an otherwise unremarkable choice look suspicious. Keep this distinct from Mumbling: Mumbling fails audience address; the Volunteered Alibi addresses the correct reader but produces suspicion rather than reassurance.
 
 When a new defect matches an existing entry, improve and rerun that prompt rather than creating a synonym. When it is genuinely different, add a new named entry before revision.
 
