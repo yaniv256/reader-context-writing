@@ -355,6 +355,7 @@ Prefer names that evoke the error without requiring the originating conversation
 - **Red Herring:** analyze a valid internal quantity that does not answer the reader's or product's actual question.
 - **Mumbling:** write a sentence aimed at the writer, a past reviewer, or someone else who is not in the room. The intended reader merely overhears an internal monologue that was not addressed to them.
 - **The Volunteered Alibi:** address the reader with an unsolicited defense that makes an otherwise unremarkable choice look suspicious. Keep this distinct from Mumbling: Mumbling fails audience address; the Volunteered Alibi addresses the correct reader but produces suspicion rather than reassurance.
+- **The Sirens of Detail:** follow attractive details before the reader has reached the question that makes them valuable. Detail is the continent containing the treasure; premature detail sings at the harbor entrance and shipwrecks the argument before the reader reaches that depth. Move the detail to the point of reader need, an appendix, an endnote, or a linked derivation—do not discard valuable support merely because its first placement was wrong.
 
 When a new defect matches an existing entry, improve and rerun that prompt rather than creating a synonym. When it is genuinely different, add a new named entry before revision.
 
