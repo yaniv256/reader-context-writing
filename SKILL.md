@@ -193,6 +193,23 @@ This pass is mandatory after the final substantive revision, even if an earlier 
 
 When a reader or reviewer identifies a writing defect, do not begin by fixing that passage. Treat the defect as evidence of a class of failures that may occur elsewhere in the document.
 
+### Stop: direct fixes are forbidden
+
+After a new defect is identified, **do not edit the document**. Do not delete the sentence, improve the paragraph, rename the symbol, adjust the formula, or make an “obvious” one-line correction. Do not draft replacement prose inside the audit. The document remains frozen until all of the following artifacts exist:
+
+1. a generalized audit prompt that does not quote, name, locate, or otherwise reveal the known positive-control passage;
+2. a quantitative rubric frozen before evaluation;
+3. a complete top-to-bottom baseline audit of the unchanged clean document;
+4. a recorded baseline score, finding ledger, false-positive readback, and dependency-ordered revision slate.
+
+Only after those four artifacts exist may revision begin. Apply the slate to the annotated authority, regenerate the clean document, and rerun the identical prompt and rubric.
+
+An edit made before the baseline is **invalid**, even if the edit is correct. Rewind it, restore the exact pre-edit document, and restart with the prompt. Do not rationalize the edit as exploration, preparation, or a harmless local improvement. The point of the procedure is to discover every instance of the failure class before the known example changes the evidence.
+
+Treat this ordering as a release gate:
+
+> **Prompt first. Baseline second. Revision third. The document does not change before the baseline is recorded.**
+
 Use this procedure:
 
 1. **Name the failure class.** Describe the general reader failure without quoting or identifying the known passage. Examples include missing symbol provenance, unsupported mathematical claims, conversation leakage, misplaced qualifications, or supporting detail that interrupts the main line.
@@ -205,7 +222,41 @@ Use this procedure:
 8. **Reject self-congratulation.** Do not raise the score because effort was spent or because the known example improved. Every point increase needs document evidence under the frozen anchors. Record declared limitations and new regressions.
 9. **Iterate when necessary.** If the second pass exposes another general failure class, tune the prompt again and repeat the full loop. Do not patch the new example in isolation.
 
+### Calibrate for distinct locations
+
+A newly tuned prompt should ordinarily produce **two to five distinct supported locations** in the unchanged document, and one must be the problem the user reported. Count locations, not symptoms: several failures inside one paragraph, example, equation chain, or appendix derivation count as one location when they share one local cause.
+
+- **Only one location:** presume the prompt is overfit to the positive control. Generalize the reader failure and rerun the unchanged baseline. Do not revise yet.
+- **Two to five locations:** the prompt is usefully scoped when the findings are supported and materially share one failure class.
+- **More than five locations:** inspect for an overbroad or noisy prompt. Narrow the class or strengthen false-positive controls unless the document genuinely contains a pervasive systemic failure.
+
+This range is a calibration target, not permission to invent findings. If careful generalization still yields only the reported example, record that the class may be isolated and seek independent evaluation rather than pretending the prompt generalized. Revision remains blocked until the calibration result is documented.
+
 Keep the prompt, rubric, baseline, revision recommendation, post-revision evaluation, and resolution trace beside the document whenever the repository supports review artifacts. A non-blinded same-session audit demonstrates that the prompt operationalizes the defect; it does not count as independent validation. When independence matters, give a fresh evaluator only the clean document, reader contract, frozen prompt, and rubric.
+
+### Maintain a named failure-mode registry
+
+Every writing project must keep a durable registry at `reviews/writing-failure-modes/`. Store an annotated `registry.readercontext.md`, generate `registry.md`, and keep each reusable audit prompt in the same directory. The registry is the index; prompt files are the executable checks. Do not leave a useful prompt only in conversation history or in a one-off review report.
+
+Give every failure mode a short, memorable name. A name is not decoration: it gives future writers and reviewers a compact handle that is easier to recall and apply consistently than an abstract paragraph of policy. Treat the claim that memorable human language directs an agent's attention as a useful compliance heuristic, not a proven account of model internals.
+
+For each registry entry, record:
+
+- memorable name and one-sentence definition;
+- reader harm and severity;
+- generalized prompt path;
+- frozen rubric or scoring anchors;
+- positive-control class without quoting or locating the original passage;
+- calibration evidence, including the distinct-location count and false positives;
+- last document and date on which the prompt was run.
+
+Prefer names that evoke the error without requiring the originating conversation. Examples:
+
+- **Humpty Dumpty:** use a familiar technical word or symbol for a quantity that violates its conventional meaning, range, normalization, or contract.
+- **Red Herring:** analyze a valid internal quantity that does not answer the reader's or product's actual question.
+- **Mumbling:** voice the writer's internal drafting thoughts instead of saying only what the reader needs.
+
+When a new defect matches an existing entry, improve and rerun that prompt rather than creating a synonym. When it is genuinely different, add a new named entry before revision.
 
 ## Make every scaling claim complete
 
@@ -221,6 +272,10 @@ Phrases such as “the signal is order $n$” or “the noise has scale $1/\sqrt
 Reject “order” as a substitute for these choices. In particular, $S=O(n)$ supplies only an upper bound and cannot justify division by a signal assumed to have size proportional to $n$. If a relative-error calculation needs $|S|$ bounded below, state that assumption and preserve the denominator in the displayed result. Apply this audit to the complete document whenever one incomplete scaling claim is found.
 
 Formal correctness is not audience fit. A proof or appendix fails when the intended reader cannot reconstruct what is being compared, why the terms exist, or what question the algebra answers. Before a general many-term derivation, give the smallest concrete named example that exposes the bookkeeping, then generalize. Equations should summarize an argument the reader already understands; they must not be the first place the argument becomes available. Audit mathematical support for teachability as well as validity.
+
+Do not use **similarity** as a generic name for every score built from similarities. For each quantity called a similarity, state its range and normalization. Distinguish a bounded per-item or cosine similarity from an unnormalized sum, dot-product ledger, numerator, energy, distance, or error. If $n$ bounded similarities are summed, say explicitly that the raw total may exceed one and show how any normalized score is obtained. Trace symbols across the complete document so a symbol already assigned to a normalized similarity is not silently reused for cross-talk, noise, or another statistic.
+
+Keep the derivation centered on the quantity the reader or product actually consumes. An intermediate sum, numerator, latent state, or bookkeeping variable earns space only by explaining the final quantity. Do not spend paragraphs interpreting an internal total while leaving the user-facing score, prediction, probability, ranking, or error implicit. State the final quantity first when possible, introduce intermediate variables locally, and carry the derivation back to the final quantity before drawing an engineering conclusion.
 
 ## Treat target rendering as a compatibility contract
 
