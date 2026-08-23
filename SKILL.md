@@ -64,6 +64,7 @@ Draft in short passages of roughly one to three paragraphs. In the annotated sou
 ```markdown
 <!--
 READER CONTEXT SIDECAR
+Survival: [NN% — of the readers who STARTED the passage above, the fraction who finish it and continue, with the mechanism that loses the rest. See the survival budget below.]
 Reader model: [What the reader now knows and believes solely from the rendered text.]
 Does not know: [What the reader has not yet been told or cannot yet infer.]
 Cares about: [What currently gives the reader a reason to continue.]
@@ -80,6 +81,122 @@ Then write the passage that performs the stated context change.
 After every paragraph, briefly simulate the reader's reaction, even when no new comment block is needed. Ask again what the reader still does not know and does not care about. Add or update a block whenever the reader's knowledge, interest, question, or required next move changes materially. Do not let several pages pass under one stale reader model.
 
 Give the simulated reader a real voice. “The reader may be confused” is less useful than: “Why are these arrays allowed to overlap? Won't one feature corrupt another?” The concrete question reveals what must be answered and when.
+
+## Hold the survival budget: no top-level section may lose half its readers
+
+
+**There is no engaged reader, only engaging text.** Survival is a property of the prose,
+never of the audience. The reader is a professional whose job is not reading this document,
+and they are looking for a reason to stop. Never argue that a technical, motivated, or
+specialist reader will tolerate more — that reasoning converts a measurement into permission,
+and it is how a 19,000-word document gets written one defensible paragraph at a time.
+
+### The budget
+
+Every sidecar carries `Survival: NN%` for the passage above it: **of the readers who started
+that passage, the fraction who finish it and continue.** Conditional, never cumulative, so
+each figure judges that passage's own writing rather than its position.
+
+Conditional figures multiply. **The mandatory invariant is that no top-level section may lose
+more than half of the readers who reached it.** Absolute survival at the end of section *n*
+must therefore be at least $2^{-n}$:
+
+| At the end of | Absolute survival must be at least |
+|---|---|
+| §1 | 50% |
+| §2 | 25% |
+| §3 | 12.5% |
+| §4 | 6.25% |
+
+A section that halves its readers has spent the entire budget for its own depth. That is
+the point of expressing it this way: it is a fixed allowance, and there is nothing to
+reallocate from later.
+
+### Calibrate against measured behaviour, not against hope
+
+Anchors, to be taken at face value rather than adjusted for your audience:
+
+- Average scroll depth on an article is about **27%**; roughly half of readers drop at the
+  fold; **45% leave within fifteen seconds**.
+- Readers consume **20–28% of the words** on a page and give about **20% of their attention
+  below the fold**. They scan; they do not read.
+- Median scroll on a piece someone chose to click is **about halfway**, and **43–44% of all
+  arrivals reach the end**.
+- Engagement rises to roughly **2,000 words**, flattens by 4,000, and past 4,000 there is
+  very little to be gained.
+
+So a passage that merely fails to offend still loses readers:
+
+| Band | Meaning |
+|---|---|
+| 90–95% | Rare. Answers a question the reader was actively holding, in fewer words than expected. Reserved. |
+| 75–89% | Genuinely wanted. New, and the reader can feel why it arrived here. |
+| 55–74% | Tolerated. Correct and necessary; the reader is working rather than reading. |
+| 30–54% | Skimmed. Most readers jump to the next heading. Effectively unpublished. |
+| <30% | Abandoned. The reader stops and does not resume at the next section. |
+
+**Below 75% a passage is a defect. Below 55% it is not being read**, so moving it to an
+appendix costs nothing and cutting it costs nothing. Record the mechanism rather than the
+number alone: "three consecutive measurements, none of which the reader asked for" is
+actionable; "somewhat dry" is not.
+
+### The procedure
+
+Run these phases in order. Each is mandatory; none may be skipped because a document "reads
+fine".
+
+1. **Estimate.** Score every passage in the section, adversarially. You wrote the prose, so
+   you are the worst-placed judge of it: look for the reason a reader stops, not for the
+   reason your paragraph is defensible.
+2. **Compute.** Multiply the conditional figures from the start of the document to the end of
+   the section. Report the absolute figure against the $2^{-n}$ target.
+3. **Iterate if it fails.** Set the target as an explicit goal and work until it holds. The
+   figures move because the prose changes.
+4. **Re-estimate after every edit, adversarially.** A rewritten passage gets a new figure and
+   a new reason. **A stale reason is worse than no figure**: it describes prose that has moved.
+5. **Look upstream when the section cannot carry it.** A section that cannot reach its target
+   by its own edits is often paying for an earlier one's excess. Re-open the previous section
+   rather than compressing this one past readability.
+
+### What you may not do
+
+- **Never raise a figure because you spent effort.** Every point of improvement must cite
+  the text that changed.
+- **Never round up to clear the bar.** If the chain lands at 24% against a 25% target, find
+  the remaining weakness. It exists — that is what the arithmetic is telling you.
+- **Never widen the bands, redefine the reader, or reclassify a section as an appendix** to
+  make a failing number pass. Moving material to an appendix is legitimate; relabelling the
+  main line is not.
+- **Never treat the cumulative product as a forecast.** Measured behaviour shows readers who
+  commit tend to continue, so independent multiplication understates real completion. The
+  chain is a **ranking of leaks and a budget**, not a prediction. Its value is that it
+  compounds, which makes a locally tolerable passage visibly expensive.
+
+### Check it mechanically
+
+`scripts/check_survival_budget.py <annotated>` reads the `Survival:` fields in document
+order, multiplies them, and reports the cumulative figure at the end of each top-level
+section against its $2^{-n}$ budget. It exits 1 on violation, so it can gate a build, and it
+also refuses any figure above the reserved band — a default of 95% everywhere fails rather
+than passing silently.
+
+Do not treat a passing run as proof the writing is good; it is proof only that the estimates
+you recorded are consistent with the budget. The estimates are the judgement, and the script
+holds you to their arithmetic.
+
+### What this catches that prose review does not
+
+The two largest defects found by applying this to a 19,000-word specification were both
+invisible to ordinary review, because each passage was individually correct:
+
+- A section stating four paragraphs of a control the document elsewhere said would be
+  retired. Scored 22% and 12%, it took the document from 12% cumulative to 0.3% — a 38×
+  loss — and everything after it, including the document's actual proposal, sat behind it.
+- An introduction of ten reference bullets — id schemes, cohort figures, key resolution —
+  before the reader knew what any of it was for. Scored 56%, it halved the audience by
+  itself. Converted to three paragraphs of argument, it scored 90%.
+
+Neither was long by the standards of its neighbours. Both were found by the number.
 
 ## Make each passage earn the next one
 

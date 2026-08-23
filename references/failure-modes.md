@@ -55,6 +55,25 @@ Place necessary support in the main line where it blocks the reader's progress. 
 
 Follow attractive details before the reader has reached the question that makes them valuable. Detail is the continent containing the treasure; premature detail sings at the harbor entrance and shipwrecks the argument before the reader reaches that depth. Move the detail to the point of need rather than discarding it.
 
+## The Tollbooth
+
+Charge the reader for passage. A section that is individually defensible at every paragraph
+and yet halves the audience by the time it ends is a tollbooth: nobody objects to any single
+charge, and most of the traffic still does not arrive. It hides from prose review precisely
+because there is no bad sentence to point at — the cost is in the aggregate, and the aggregate
+is invisible without a number.
+
+Two forms recur. **The retired control**: pages specifying apparatus the document elsewhere
+says is temporary or expected to be withdrawn, which the reader has no reason to hold. **The
+premature reference block**: identifiers, cohort figures, key schemes and configuration
+delivered before the reader knows what any of it is for, usually as a bulleted list, usually
+in an introduction.
+
+Detect it by scoring conditional survival per passage and multiplying to the end of each
+top-level section, against a budget of $2^{-n}$. Fix it by moving the material behind a
+pointer or converting the list into argument — a constraint plus the consequence it forces
+reads as reasoning rather than as reference.
+
 ## Railroading
 
 Write for one imaginary, perfectly predictable reader and force the whole audience through one reading order or depth. Model the audience as a party with different interests. Preserve a coherent main path while signposting meaningful branches through section links, cross-references, appendices, endnotes, footnotes, indexes, or labeled optional depth.
