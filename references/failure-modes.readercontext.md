@@ -89,6 +89,62 @@ reads as reasoning rather than as reference.
 
 Write for one imaginary, perfectly predictable reader and force the whole audience through one reading order or depth. Model the audience as a party with different interests. Preserve a coherent main path while signposting meaningful branches through section links, cross-references, appendices, endnotes, footnotes, indexes, or labeled optional depth.
 
+## The Ghost Menu
+
+<!--
+READER CONTEXT SIDECAR
+Reader model: Has just been told what the design is. Did not propose an alternative and cannot see the one being ruled out.
+Does not know: Which options the writer considered and discarded.
+Reader voice: "Why are you telling me about something that isn't here?"
+Next passage: Nothing follows from this entry; the remedy is deletion, not replacement.
+-->
+
+Describe what the document is not doing: absent data sources, rejected approaches, alternatives nobody proposed. "No article body is used, and no external service is called" answers a question the reader never asked, and each such sentence asks them to hold an object that exists only in the writer's deliberations. This differs from the Volunteered Alibi, which defends a choice that was made; the Ghost Menu describes choices that were not.
+
+Name a rejected alternative only when a competent reader would reach for it by default — an additive context term, a semantic embedding of a proper name, a language's built-in string hash. Then state the property positively and let the alternative appear as the reason rather than the headline. Genuine limitations are different and belong wherever the document collects them.
+
+## The Rain Check
+
+<!--
+READER CONTEXT SIDECAR
+Reader model: Mid-argument, holding a question the sentence promises to answer.
+Does not know: What any section number contains.
+Reader voice: "You told me where the answer lives. I asked what it is."
+Next passage: Must contain the answer, not its address.
+-->
+
+Put a pointer where a sentence belongs. "Section 4 recovers exactly that." "Section 6 takes up what each costs." The reader is handed a number to carry instead of a fact, and the sentence's meaning depends on knowing what lives at that number.
+
+The test is whether the sentence is complete without the reference. "The weights are fitted on the ranking objective (§3.5)" passes: the parenthetical is somewhere to look later. "Section 4 recovers that" fails. A forward reference is usually covering for a missing sentence, and writing the actual sentence tends to come out shorter and stronger — a section closing on "which is what section 2 builds" became "those properties are the same for a story published this morning as for one published last month, so a model built on them keeps working as the pool turns over," which was the real answer to the problem the section had just posed.
+
+## The Grandfathered Claim
+
+<!--
+READER CONTEXT SIDECAR
+Reader model: Reading the current document only, with no knowledge of any earlier version.
+Does not know: That a sentence predates the passage now surrounding it.
+Cares about: Whether what the document says is true of the document as it stands.
+Next passage: Whatever the revision now requires.
+-->
+
+Carry a sentence forward through a revision without re-checking it. Rewriting is not moving sentences around: every sentence kept is a claim asserted again, in a document that has changed underneath it. "It was there before" is not a reason.
+
+Absolutes are where this does the most damage — nothing, never, always, only, none. A claim that "nothing here is fitted" survived two rewrites that added a fitted constant directly beneath it, because each local edit looked fine and nobody re-read the sentence against the new surroundings. Scrutinise every absolute on every pass, and treat a passage's neighbours as part of what changed when the passage changed.
+
+## The Borrowed Witness
+
+<!--
+READER CONTEXT SIDECAR
+Reader model: Has no independent access to the data and takes a cited number as evidence for the sentence it sits in.
+Does not know: Which population the statistic was computed over.
+Cares about: Whether the evidence supports the claim it is attached to.
+Next passage: Must not depend on the number meaning more than it does.
+-->
+
+Attach a real, correctly computed statistic to a claim it does not support. The number is true; the population it measures is not the population under discussion. A specification once opened by reporting that a section field was null on 67.6% of page views — accurate, and dominated by homepage, obituary and games traffic that the model explicitly excludes. Among the story pages the model actually ranks, the field was populated 91.3% of the time.
+
+This is not a rigor failure in the derivation; the arithmetic is sound. It is a failure of correspondence between the measured population and the argued one, and it is worst in an opening, where the reader has nothing else to judge by and no way to notice. Check that each statistic measures the thing being argued about rather than a neighbouring population that happened to be at hand.
+
 ## The Missing Carrot
 
 Ask the reader to follow an instruction, transition, or reading path without exposing a real benefit in return for their attention. The reader is free to leave; prose cannot assume they will tag along. State what they gain, what problem they avoid, or what capability the requested step unlocks. The benefit must matter to the reader rather than merely serving the writer's preferred process.

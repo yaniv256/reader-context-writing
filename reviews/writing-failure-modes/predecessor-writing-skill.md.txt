@@ -1,0 +1,326 @@
+---
+name: writing
+description: Yaniv's standards for prose in documents I write for him — specifications, plans, decks, explainers, READMEs. Load when drafting or revising any document he will read or circulate, and re-read before adding to a document that already exists.
+---
+
+# Writing
+
+**After writing any sentence, ask one question: did I write this for the
+conversation, or for the reader?**
+
+That is the gate. Nearly every failure catalogued below is a sentence that
+reached the page without passing it.
+
+The reason it happens is structural. I write while the discussion is still live —
+the objection just answered, the argument just won, the alternative just
+rejected, the number just quoted, the decision just made. All of it is vivid to
+me and absent for the reader, so it leaks onto the page looking like content.
+Nothing about the sentence flags it. It reads fine to the person who was in the
+conversation, which is the only person who will never notice.
+
+The gate cannot be applied while drafting, because during drafting the two
+contexts feel identical. It has to be applied on a re-read, sentence by
+sentence, asking of each: **would this exist if the conversation had not
+happened?**
+
+---
+
+## What conversation-context writing looks like
+
+### Defending a decision that nobody has questioned
+
+*X, which is a constraint rather than a convenience.* *This is the honest trade
+against Y.* *Worth naming so a reviewer does not think Z.* Each answers a
+challenge that was live for me and invisible to the reader — and lands early,
+where the decision was made, which is exactly where the reader least understands
+what is being defended.
+
+Say what the design is. A reader who wants to challenge it will do so better from
+a clear statement than from a pre-emptive rebuttal.
+
+*"You're involving them in an internal debate that you were having with yourself
+at the time of the writing."*
+
+### Defending an edit I have just made
+
+The narrowest form: fixing something, then explaining why the fix beats what it
+replaced. *The trailing 30 days, rather than a fixed past month.* The reader never
+saw the old version.
+
+### Importing the argument that convinced me
+
+A derivation that settled a question in discussion is usually unnecessary in the
+document. The reader is being told what the design is, not argued back into it,
+and the algebra spends attention the actual content then does not get.
+
+**The tell: a passage that exists because it convinced *me*.** Replace it with the
+choice plus one sentence of reason. If something is load-bearing but secondary it
+is a side note, never a formula on the main line.
+
+*"This was an argument you made in a conversation and decided it belongs in the
+article, where actually I don't think it belongs. We don't need to prove."*
+
+### Writing about what is not being done
+
+Absent data sources, rejected approaches, alternatives nobody proposed — all of
+them were live in the conversation and none belong in the document. *"No body
+text is used, and no external service is called"* tells the reader nothing they
+needed.
+
+The exception is narrow: name a rejected alternative only when it is what a
+competent reader would reach for by default — an additive context term, a
+semantic embedding of a proper name, a language's built-in string hash. Those are
+guardrails. Even then, state the property positively and let the alternative
+appear as the reason, not the headline. Genuine limitations are different and
+belong in the section whose job is to record them.
+
+*"Just realize that we don't need to talk about what we're not doing."*
+
+### Assuming context the reader does not have
+
+Two failures, both invisible from inside the conversation.
+
+**What the reader knows so far.** A document is read forward. A sentence
+depending on material introduced later is not early, it is unreadable where it
+appears — a comparison before both things compared exist, a symbol before its
+definition, a trade-off between options only one of which has been named.
+Headings are the sharpest case, since a heading is read before its content: a
+self-referential title like "Why this exists" points at a referent the reader
+does not have. Name the subject, not the document. And develop one subject fully
+before starting the next; a reader cannot hold an unfinished thread while another
+opens.
+
+**What the reader has at all.** A future reader holds neither the deck this
+accompanied, the conversation that produced it, nor the ticket that prompted it.
+*"The object the slides call…"*, *"as discussed"* — each quietly makes the
+document a fragment. Name a companion artifact once if useful; let nothing in the
+body depend on having seen it.
+
+*"Both models use it, so neither gains an advantage" — three sections before the
+two models are specified. And: "that just assumes the reader knows about the
+slides."*
+
+### Deferring instead of writing
+
+*Section 4 recovers exactly that.* *Section 6 takes up what each costs.* *…which
+is what section 2 builds.* A pointer stands where a sentence should be, and the
+reader is handed a number to hold instead of a fact.
+
+The distinction is whether the sentence is complete without the reference. *The
+weights are fitted on the ranking objective (§3.5)* is fine — the parenthetical
+is a place to look later. *Section 4 recovers that* is not: its meaning depends
+on knowing what section 4 contains, which the reader does not.
+
+**The tell: a forward reference is usually covering for a missing sentence.**
+Three of four in one draft were, and writing the actual thing came out shorter
+and stronger every time. A section closing on *which is what section 2 builds*
+became *those properties are the same for a story published this morning as for
+one published last month, so a model built on them keeps working as the pool
+turns over* — the real answer to the problem the section had just posed, which
+the pointer had been standing in front of.
+
+*"You can't start talking about Section 4 like this. The reader doesn't know
+anything about Section 4."*
+
+### Treating the document like a thread
+
+A conversation is append-only; a document is not. When something new has to go
+in, the instinct is to find the spot and insert — a paragraph, a note, a formula
+between two others. **Rewrite the whole passage instead, so it reads as though
+the new material had been there from the start.**
+
+An insertion preserves prose written without knowledge of the new thing, so the
+surrounding sentences now describe a document that no longer exists: a definition
+the addition contradicts, a transition that no longer connects, a summary that
+omits what was just added.
+
+**The tell: if the edit is an insertion, it is probably wrong.** Replacing a
+subsection is the normal shape of a revision.
+
+The commonest disguise is the callout — rather than rework a section, add a note
+to it. A note is for a hazard a reader must not miss, never for material that was
+inconvenient to place. Callouts also decay: at high density they stop signalling
+and the real hazards are lost among them. Ask of each, is this a trap someone
+would otherwise fall into? If not, it is prose.
+
+*"Every time you wanted to add something you added it as a note. This is not good
+writing."*
+
+### Carrying forward the order things were discovered in
+
+An opening that begins with scope, data sources and date ranges is reporting the
+sequence of the investigation. The reader has not agreed to read anything yet;
+none of that is a reason to decide.
+
+Open with what makes the subject worth someone's time — the observation, the gap,
+the question — then say what the document will do about it. **Keep it extremely
+short: every word in an opening is paid for in readers who leave.** Roughly a
+hundred words, three short paragraphs, before any reference material.
+
+Preliminaries are demoted rather than cut, and often carry motivation once
+reframed: *"everything comes from one table we already have"* is not
+administrative trivia, it says the work can start now.
+
+*"You don't start an article by talking about the data." And: "every word you
+write is paid for with readers that are lost."*
+
+### Freezing a parameter of the investigation into the specification
+
+A window I happened to profile becomes a pinned date range. A cohort I happened
+to measure becomes a definition. The specification should say what recomputes and
+when; the measured figures are illustration, labelled as such.
+
+---
+
+## Rules that stand on their own
+
+### Every sentence you keep is a claim you are re-asserting
+
+Rewriting is not moving sentences around. Each sentence carried forward is a
+claim made again, in a document that has changed underneath it. **Ask of each: is
+this true right now?** "It was there before" is not a reason.
+
+Scrutinise absolutes hardest — *nothing, never, always, only, none*. A claim that
+"nothing here is fitted" survived two rewrites that added a fitted constant
+directly beneath it.
+
+**A number is not evidence until it bears on the claim.** Check that the
+statistic measures the thing being argued about, not a neighbouring population
+that happens to be at hand. A real figure deployed for a claim it does not
+support is a bluff, and it is worst in an opening where the reader has nothing
+else to judge by.
+
+*"You have to think about what you read. Ask yourself, is it true?" And: "you
+can't bluff the reader on the second sentence of the article."*
+
+### Claim exactly what is true
+
+- **No inflated commitments.** "one of the things we would add next", not "the
+  first thing" — priority ordering is the reader's to set.
+- **No invented figures.** A plausible number in a document that otherwise cites
+  measurements will be read as measured.
+- **No unverified citations.** Author, title, venue, year, each checked against a
+  published record before it ships.
+
+### Say the thing; do not announce that you are saying it
+
+No phrases advertising the author's own candour or rigour: "the honest catch",
+"to be honest", "let's be clear", "set before results". Label a caveat "Note" and
+give the caveat.
+
+*"This is a signature of you as a particular model. If you've got something to
+explain, just explain it."*
+
+### Define terms and notation where they first appear
+
+No front-loaded glossary or symbol table. A table read cold is a list of glyphs
+and it drifts from the body as the document changes; defining in place also
+surfaces collisions a table hides. This covers jargon as much as symbols — terms
+like "age" or "reading share" carry a precise local meaning a reader cannot
+infer.
+
+*"Your use of the terms age and reading share, that's inside baseball."*
+
+---
+
+## Reader-context notes
+
+A paragraph is an operator on reader context. It takes the reader in one state
+and returns them in another, and it is good exactly insofar as that transition is
+the one the document needs at that point. But the input state is invisible — it
+lives in my head while drafting and is gone by the time anyone reviews the
+result — so the operator gets judged on how it reads rather than on what it does.
+
+The fix is to write the state down. Interleave hidden notes through the document,
+each recording two things at that position:
+
+```
+Knows:                  what the reader holds coming in — and what they
+                        conspicuously do not hold yet
+Next passage owes them: the state it must leave them in
+```
+
+These are a record of the reasoning that produced the passage, kept beside it.
+Not a summary of the passage — a specification of the job.
+
+### Why the pair is the test
+
+The notes surrounding a paragraph form a claim: *given this input, this paragraph
+produces that output.* So the note before paragraph N+1 must state the state that
+paragraph N's goal line predicted. **Where consecutive notes fail to meet, the
+paragraph between them does not do what it claims** — and the mismatch localizes
+the defect to one paragraph instead of leaving "this section drags" as the whole
+diagnosis.
+
+This makes review answerable. *Is this good writing* has no procedure. *Does this
+passage carry the reader from the state above to the state below* does.
+
+### Writing with them
+
+Write the note first, then the passage. Committing to what the reader knows and
+what they need next is a decision that would otherwise be made implicitly, and
+made worse.
+
+It also exposes the openings. A note reading *they have not decided to read on,
+and may read nothing after this* is a hard constraint that a paragraph opening
+with scope and data sources visibly violates. Where reader state changes fastest —
+openings, the turn from problem to mechanism — one note per paragraph. Where the
+passage elaborates something already established, the state does not move enough
+to earn one; the unit is **each point where what the reader knows actually
+changes**, not each paragraph.
+
+### Using them on review
+
+Read the document through the notes rather than around them:
+
+1. **Does each passage discharge the note above it?** If it delivers something
+   else, one of the two is wrong — and it is worth deciding which, because a
+   passage doing something better than its stated job means the note was
+   mis-specified.
+2. **Do consecutive notes meet?** A gap is a missing passage. An overlap is a
+   subject developed twice.
+3. **Does any note assume something the reader was never given?** This is the
+   gate, made checkable: the note names the assumption out loud, where the prose
+   only relies on it.
+
+### Keeping them honest
+
+They are scaffolding, not content: hidden from readers, hidden from screen
+readers, absent in print. A reader should never encounter one.
+
+**A stale note is worse than no note**, because it asserts the reader's state
+falsely and review then proceeds from a false premise. Rewriting a passage means
+rewriting its note in the same edit. They cannot be added at the end either — a
+note reconstructed from finished prose describes what the paragraph does, which
+is the one thing the method must not assume.
+
+*"This is like a record of the chain of thought that was used to create that
+paragraph. The paragraph is like an operator that we apply on reader context. We
+need to expose what is our understanding of reader context at every point in
+order to evaluate whether the operator works or not."*
+
+---
+
+## The practice
+
+Apply the gate on a re-read, not while drafting. Then read the whole document top
+to bottom, repeatedly. Local edits each look fine; structural damage only appears
+on a full pass — a section whose order broke because one part grew, a term used
+two sections before it is explained, two sections that now disagree. There is no
+shortcut.
+
+Before declaring it done:
+
+- every sentence would exist even if the conversation had not happened
+- the opening earns attention in under a hundred words
+- every claim is true of the document as it now stands, absolutes most of all
+- every number bears on the claim it is attached to
+- every term and symbol is defined once, at or before first use
+- no section contradicts another, and no heading refers to the document
+- each subject is developed once, not revisited
+- every callout is a hazard; the rest is prose
+- nothing describes what is not being done
+- nothing from the investigation is frozen into the specification
+- no forward reference stands where a sentence belongs
+- every passage discharges the note above it, and consecutive notes meet
+- no note is stale, and no reader can see one
