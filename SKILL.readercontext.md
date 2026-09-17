@@ -45,6 +45,37 @@ For every revision:
 
 If the clean file was edited accidentally, do not preserve that edit as an exception. Recreate the change in the annotated source with its reader context, then regenerate the clean file. Never ask the operational reader to ignore embedded session notes; keep those notes out of the operational artifact.
 
+## The renderer is part of the document, and it can fail silently
+<!--
+READER CONTEXT SIDECAR
+Reader model: The agent now knows the file pair and the four-step revision loop, and has just been told to "run the renderer" as if that step always reports something.
+Does not know: That the renderer is a program which can die without producing output, and that an empty result is ambiguous rather than informative.
+Cares about: Not losing an hour to a step the previous section made sound clerical.
+Does not care about: The specific document whose renderer failed, or its subject matter.
+Reader voice: "It says run the renderer. What could there possibly be to say about that?"
+Unresolved: What to do when the render step produces nothing at all.
+Next passage: Name the failure, give the two diagnostic rules, and state the two structural requirements a renderer must meet.
+Do not assume: That the agent will interpret an empty result as a failure. The whole hazard is that it reads as "nothing to report."
+-->
+
+Steps 3 and 4 above name a renderer and a parity check. Both are programs, and this section exists because a renderer can fail in a way that looks like nothing happening.
+
+**An empty result is not an outcome — it is the absence of one.** A render that prints no output, writes no file, and reports no error has told you nothing about whether it ran. Three states produce that identical presentation: the program completed and printed nothing, it never started, or it was killed mid-execution. Treat an empty render result as *unread*, never as *clean*.
+
+**Two rules make the difference visible:**
+
+- **Never re-run a silent command more than once without changing the observation.** A second identical run of a command that returned nothing returns nothing for the same unknown reason. If the result is empty, change what you can see — capture the exit status, redirect stdout and stderr to separate files, print a marker as the first statement — rather than varying the invocation and hoping.
+- **Check the exit status explicitly, and read a status above 128 as a signal.** A status of 137 is `SIGKILL`, usually the out-of-memory killer. A killed process cannot flush a buffer, run an exception handler, or print a traceback, so the *absence of a traceback is consistent with a crash* rather than evidence against one. When even the shell's own next statement fails to run, the process was killed rather than merely unsuccessful.
+
+**A renderer that walks lines must be structurally unable to spin.** The common shape is a `while` loop over lines whose body is responsible for advancing the index, dispatching each line to a branch. The failure is that the predicate which *selects* a branch and the predicate which *consumes* lines inside it are written separately and allowed to disagree; when they disagree, the branch consumes nothing, the index never advances, and the loop repeats forever. If the body also appends output on every pass, memory is exhausted and the process is killed — which is how the loop becomes silent rather than merely slow. This is a documented family, not a novelty: Asciidoctor, Python-Markdown, and HTML Tidy have all shipped it.
+
+Two requirements follow, and both are structural rather than a matter of writing a better predicate:
+
+- **Name the set of block-opening characters once**, and use that single definition for both selecting a branch and consuming lines within it, so the two cannot drift apart.
+- **Assert progress on every iteration.** Record the index before dispatch and raise if it has not advanced, naming the offending line. This converts the entire failure class from a silent kill into an immediate, located error.
+
+**Keep the renderer beside the document it renders,** committed with it. A renderer written to a temporary directory does not survive to the next edit, and the pair-maintenance rule then has no tool to enforce it — the clean file gets hand-edited precisely because regenerating it has become expensive.
+
 ## Separate the user session from the reader's context
 <!--
 READER CONTEXT SIDECAR
