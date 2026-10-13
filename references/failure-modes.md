@@ -106,6 +106,34 @@ Attach a real, correctly computed statistic to a claim it does not support. The 
 
 This is not a rigor failure in the derivation; the arithmetic is sound. It is a failure of correspondence between the measured population and the argued one, and it is worst in an opening, where the reader has nothing else to judge by and no way to notice. Check that each statistic measures the thing being argued about rather than a neighbouring population that happened to be at hand.
 
+## The Two-Audience Collapse
+
+
+Write an artifact for the person approving it rather than for the person who will
+meet it later. A change under review has two readers and they want opposite things:
+the reviewer reads once, now, and needs the evidence that the change is right — the
+measurements, the rejected alternatives, what could not be verified. The later
+reader meets only the result, usually without the discussion, and needs what the
+thing does and how to operate it. Justification they did not ask for is noise
+obscuring the instruction they came for.
+
+The collapse is almost always in one direction, because the reviewer is the reader
+the writer can see. A grant script acquired twenty lines of denied-view measurements
+and investigation dates addressed to an approver who would read them once; the
+operator running it a year later needed none of it. **The split is not a rule about
+code comments** — it recurs wherever a change is reviewed before it lands, in commit
+messages against the code they modify, in a migration against the schema it leaves
+behind, in release notes against the documentation they amend. Ask of every sentence
+which reader it serves, and move the review-only material to the pull request, the
+commit message, or wherever the approval conversation lives. Nothing is lost by
+moving it; the reviewer still reads it, in the place built for them.
+
+One class of material belongs in both, and deciding it requires care rather than a
+rule: a finding the later reader is harmed without. When a privilege failure surfaces
+as an empty result rather than an error, the operator who does not know that reads a
+silent zero as a real measurement. That stays in the artifact — not because it is
+important, but because omitting it causes a specific misreading at a specific moment.
+
 ## The Missing Carrot
 
 Ask the reader to follow an instruction, transition, or reading path without exposing a real benefit in return for their attention. The reader is free to leave; prose cannot assume they will tag along. State what they gain, what problem they avoid, or what capability the requested step unlocks. The benefit must matter to the reader rather than merely serving the writer's preferred process.

@@ -18,7 +18,7 @@ Do not assume: Knowledge of the conversation in which this skill was designed.
 
 Write the document as a conversation with its eventual reader—not as a continuation of the current user session or a transcript of the drafting process.
 
-Treat reader-context comments as working memory. Keep them in the annotated source and generate a clean operational file that omits them. Always maintain both files.
+Treat reader-context comments as working memory. Keep them in the annotated source and generate a clean operational file that omits them. Always maintain both files — though not necessarily in the same repository; see "When the delivery repository must not hold the annotated source".
 
 ## Always edit the annotated source
 
@@ -33,6 +33,53 @@ The annotated source must:
 - model the actual future reader of the clean artifact, not the current agent or user;
 - be the editing authority from which the clean artifact is generated;
 - remain mechanically synchronized so removing its reader-context blocks reproduces the clean file byte for byte.
+
+<!--
+READER CONTEXT SIDECAR
+Survival: 86% — the agent has just been told the annotated source is the only
+editing authority, and is about to apply that to a repository that does not
+want it. This answers the question at the moment it arises.
+Reader model: Knows the pair-maintenance rule and that the clean file is a
+projection. Has probably inferred that both files are committed together,
+because every example so far shows them side by side.
+Does not know: That the annotated source may belong outside the delivery
+repository, or what enforces parity once the two are separated.
+Cares about: Not committing working memory into someone else's repo, and not
+silently losing an edit.
+Does not care about: Which specific repository raised this.
+Reader voice: "The repo only wants the rendered file. Do I skip the skill, or
+commit the sidecar anyway?"
+Unresolved: What replaces the co-located parity check.
+Next passage: Name the third location, and the failure it introduces.
+Do not assume: That the agent will invent a safe workflow unprompted. Spell
+out the ordering, because the failure is silent.
+-->
+### When the delivery repository must not hold the annotated source
+
+A repository may legitimately refuse the annotated source: it ships an
+operational artifact and treats drafting memory as noise. The pair-maintenance
+rule still applies — what changes is where the pair lives.
+
+Keep the annotated source and the renderer together in a drafting location
+outside the delivery repository, and copy only the rendered artifact across.
+The annotated source remains the editing authority; the committed file is
+still a projection, now of a document held elsewhere.
+
+**Separating the pair removes the guard that made hand-editing recoverable.**
+While both files sit together, a hand-edit to the clean file is caught by the
+parity check. Once they are apart, nothing in the delivery repository knows
+the committed file is generated: an edit made there survives review, ships,
+and is overwritten by the next render with no error and no conflict. The
+sequence is therefore render, verify parity, then copy — and never edit the
+copy.
+
+When the clean artifact is not Markdown, give the annotated source a `.md`
+extension and the clean name its own. `READER CONTEXT SIDECAR` blocks are
+delimited by `<!--` and `-->`, which are not valid syntax in SQL, YAML, or
+most configuration formats; because those delimiters exist only in the
+annotated source, the rendered artifact is syntactically clean. Naming the
+annotated file `.md` also keeps editors from reporting a file full of HTML
+comments as broken.
 
 For a skill, model a fresh agent that has loaded `SKILL.md` because the skill triggered. Assume that agent has no memory of the conversation that produced the skill. Track what the instructions have established, what the agent may misread, and what the next section must clarify for correct execution.
 
@@ -74,7 +121,7 @@ Two requirements follow, and both are structural rather than a matter of writing
 - **Name the set of block-opening characters once**, and use that single definition for both selecting a branch and consuming lines within it, so the two cannot drift apart.
 - **Assert progress on every iteration.** Record the index before dispatch and raise if it has not advanced, naming the offending line. This converts the entire failure class from a silent kill into an immediate, located error.
 
-**Keep the renderer beside the document it renders,** committed with it. A renderer written to a temporary directory does not survive to the next edit, and the pair-maintenance rule then has no tool to enforce it — the clean file gets hand-edited precisely because regenerating it has become expensive.
+**Keep the renderer beside the document it renders**, committed with it where the delivery repository accepts the annotated source, and in the drafting location otherwise. A renderer written to a temporary directory does not survive to the next edit, and the pair-maintenance rule then has no tool to enforce it — the clean file gets hand-edited precisely because regenerating it has become expensive.
 
 ## Separate the user session from the reader's context
 <!--
@@ -356,6 +403,19 @@ Do not let the last correction dominate the next draft. Ask whether a fresh read
 ### Carrying correction rationale into the document
 
 A correction from the user often includes a reason so the current agent can apply it well. Treat that reason as user-session context, not as reader-facing content. Preserve the correction's effect. Include its rationale only when a fresh reader independently needs the underlying reason to understand, evaluate, or act on the document. State that reason directly; do not narrate the correction, defend the new wording, or explain why an earlier version was wrong.
+
+### Writing the artifact for its reviewer
+
+A change that is reviewed before it lands has two readers wanting opposite things.
+The reviewer reads once, now, and needs the evidence: measurements, alternatives
+rejected, what could not be verified. The later reader meets only the result,
+without the discussion, and needs what it does and how to operate it.
+
+Default to the artifact's own reader, and move review-only material to the pull
+request, the commit message, or wherever approval is discussed. Nothing is lost —
+the reviewer still reads it, in the place built for them. Keep a finding in both
+only when its absence causes the later reader a specific misreading. See **The
+Two-Audience Collapse** in `references/failure-modes.md`.
 
 ### Switching audiences midstream
 
