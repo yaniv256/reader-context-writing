@@ -1,6 +1,6 @@
 ---
 name: reader-context-writing
-description: Draft and revise substantial reader-facing prose by explicitly separating the current user-session context from the reader's evolving knowledge, interests, questions, objections, and expectations. Always edit a reader-context-annotated source and mechanically generate its clean reader-facing counterpart. Use for articles, essays, tutorials, reports, white papers, opinion pieces, operational source artifacts, and major rewrites where conversation context, user feedback, jargon, patchwork editing, irrelevant rationale, or unexplained assumptions could leak into the document.
+description: Draft and revise substantial reader-facing prose by explicitly separating the current user-session context from the reader's evolving knowledge, interests, questions, objections, and expectations. Always edit a reader-context-annotated source and mechanically generate its clean reader-facing counterpart. Use for articles, essays, tutorials, reports, white papers, opinion pieces, operational source artifacts, and major rewrites where conversation context, user feedback, jargon, patchwork editing, irrelevant rationale, or unexplained assumptions could leak into the document. Also use before replying to pull-request or issue review comments: read every comment first, and make each reply say exactly what it answers.
 ---
 
 # Reader Context Writing
@@ -455,6 +455,17 @@ Keep the derivation centered on the quantity the reader or product actually cons
 When the delivery surface renders Markdown, mathematics, diagrams, embeds, or other structured content, validate the clean document in that actual renderer. Source validity does not prove deployed readability.
 
 For GitHub-bound mathematics, read `references/github-math-compatibility.md`, run `scripts/check_github_math_compatibility.py`, and follow its live-render release gate. Use only commands in the tested registry. Unknown commands fail closed until their Markdown preprocessing, live math component, and final pixels have been tested. Every recurring failure must expand the registry, checker, reference, and regression evidence; do not fix another isolated occurrence of an already observed incompatibility.
+
+
+## Reply to review comments by naming what you answer
+
+A comment on a pull request or issue has a reader who sees the whole thread, not the session that wrote the reply. The thread may hold several reviews by different people, posted at different times. A reply that does not say what it answers is read as answering whatever sits just above it.
+
+**Read every comment before replying.** List the reviews, the line comments and the top-level comments, with their authors and times, and check for any posted since you last looked. A reply drafted against one review and posted after another arrived reads as answering the newer one.
+
+**Say what each reply answers.** Where the platform threads replies, as GitHub does for line comments, reply in that thread. Where it does not, as with a review's summary or a top-level comment, open the reply with a link to the review or comment and its author, and say plainly if another review in the same thread is answered elsewhere. Then quote each point before answering it, one short quote per point, so the reader can match every answer to its question without scrolling.
+
+Lead each answer with its outcome — **fixed** (with the commit), **not a change** or **not changed** (with the evidence) — then one or two sentences of reason. When the reply is posted on someone's behalf, open it by saying so — *From <name>'s Claude (the AI assistant working on this PR for <name>)* — so no reader takes it for that person's own words.
 
 ## Completion standard
 
